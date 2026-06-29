@@ -1,0 +1,18 @@
+# Byte-compiled
+__pycache__/
+*.pyc
+*.pyo
+
+# MediaPipe model (auto-downloaded on first run)
+hand_landmarker.task
+
+# Claude config
+.claude/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
