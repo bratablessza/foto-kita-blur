@@ -8,6 +8,7 @@ hand_landmarker.task
 
 # Claude config
 .claude/
+CLAUDE.md
 
 # IDE
 .vscode/
