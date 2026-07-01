@@ -258,6 +258,12 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/about")
+def about():
+    """Serve the developer about page."""
+    return render_template("about.html")
+
+
 @app.route("/video_feed")
 def video_feed():
     """MJPEG video stream endpoint."""

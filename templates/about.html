@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — FOTO KITA BLUR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1a1815;
+            color: #e8e2da;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 48px 20px;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .card {
+            background: #23201d;
+            border: 1px solid #2a2724;
+            border-radius: 20px;
+            padding: 52px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(240, 160, 80, 0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle golden-hour glow at top of the card */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: radial-gradient(ellipse 80% 120px at 50% 0%, rgba(240, 160, 80, 0.07) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-block;
+            color: #8a8580;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.25s ease;
+            margin-bottom: 36px;
+            position: relative;
+            z-index: 1;
+        }
+        .back-link:hover {
+            color: #f0a050;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        .header h1 {
+            font-size: 30px;
+            font-weight: 700;
+            color: #f0ebe4;
+            line-height: 1.2;
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+        }
+        .header .role {
+            font-size: 16px;
+            color: #b5afa8;
+            font-weight: 400;
+            margin-bottom: 18px;
+        }
+        .accent-bar {
+            width: 40px;
+            height: 2px;
+            background: #f0a050;
+            border-radius: 2px;
+            box-shadow: 0 0 8px rgba(240, 160, 80, 0.3);
+        }
+
+        /* Profile */
+        .profile-text {
+            color: #9a9590;
+            font-size: 15px;
+            line-height: 1.85;
+            margin-bottom: 28px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Location */
+        .location {
+            color: #6a6560;
+            font-size: 13px;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Contact pills */
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 42px;
+            position: relative;
+            z-index: 1;
+        }
+        .contact-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            border: 1px solid #3a3530;
+            border-radius: 24px;
+            padding: 9px 18px;
+            color: #c5bfb5;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .contact-pill svg {
+            transition: color 0.25s ease;
+        }
+        .contact-pill:hover {
+            border-color: #f0a050;
+            color: #f0a050;
+            box-shadow: 0 0 16px rgba(240, 160, 80, 0.12);
+        }
+        .contact-pill:hover svg {
+            color: #f0a050;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 38px;
+            position: relative;
+            z-index: 1;
+        }
+        .section:last-of-type {
+            margin-bottom: 0;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #8a8580;
+            white-space: nowrap;
+        }
+        .section-divider {
+            flex: 1;
+            height: 1px;
+            background: #2a2724;
+        }
+
+        /* Education */
+        .edu-item {
+            margin-bottom: 16px;
+        }
+        .edu-item:last-child {
+            margin-bottom: 0;
+        }
+        .edu-item .school {
+            color: #f0ebe4;
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 2px;
+        }
+        .edu-item .detail {
+            color: #9a9590;
+            font-size: 14px;
+        }
+
+        /* Skills */
+        .skill-group {
+            margin-bottom: 20px;
+        }
+        .skill-group:last-child {
+            margin-bottom: 0;
+        }
+        .skill-group-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #f0a050;
+            margin-bottom: 10px;
+        }
+        .skill-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .skill-pill {
+            display: inline-block;
+            border: 1px solid #2a2724;
+            border-radius: 8px;
+            padding: 5px 14px;
+            background: #1a1817;
+            color: #b5afa8;
+            font-size: 13px;
+            line-height: 1.55;
+            transition: border-color 0.2s ease, color 0.2s ease;
+        }
+
+        /* Experience */
+        .exp-item {
+            margin-bottom: 26px;
+            padding-bottom: 26px;
+            border-bottom: 1px solid #221f1c;
+        }
+        .exp-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .exp-item .company {
+            color: #f0ebe4;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 3px;
+        }
+        .exp-item .role {
+            color: #f0a050;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+        .exp-item .period {
+            color: #6a6560;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+        .exp-item .desc {
+            color: #9a9590;
+            font-size: 14px;
+            line-height: 1.75;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 42px;
+            padding-top: 22px;
+            border-top: 1px solid #2a2724;
+            text-align: center;
+            font-size: 11px;
+            color: #5a5550;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 560px) {
+            body {
+                padding: 28px 16px;
+            }
+            .card {
+                padding: 32px 22px;
+            }
+            .contact-row {
+                flex-direction: column;
+            }
+            .header h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <a href="/" class="back-link">&larr; Back</a>
+
+        <div class="header">
+            <h1>Brata Blessza Cham</h1>
+            <div class="role">Fullstack Developer</div>
+            <div class="accent-bar"></div>
+        </div>
+
+        <p class="profile-text">
+            Always finding ways to challenge and develop creative skills, defining the real issues
+            that need to be addressed. Loves the outdoors, music, and photography.
+        </p>
+
+        <div class="location">Ciputat, Tangerang Selatan, Indonesia</div>
+
+        <div class="contact-row">
+            <a href="mailto:bratablessza1997@gmail.com" class="contact-pill">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                Email
+            </a>
+            <a href="https://linkedin.com/in/bratablessza" target="_blank" class="contact-pill">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                LinkedIn
+            </a>
+            <a href="https://github.com/bratablessza" target="_blank" class="contact-pill">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                GitHub
+            </a>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <span class="section-label">Education</span>
+                <span class="section-divider"></span>
+            </div>
+            <div class="edu-item">
+                <div class="school">Putra Indonesia University</div>
+                <div class="detail">Bachelor in Information System, 2020</div>
+            </div>
+            <div class="edu-item">
+                <div class="school">Juara Coding Bootcamp</div>
+                <div class="detail">Java Fullstack Developer, Sep 2021 &ndash; Jan 2022</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <span class="section-label">Skills</span>
+                <span class="section-divider"></span>
+            </div>
+            <div class="skill-group">
+                <div class="skill-group-label">Languages</div>
+                <div class="skill-pills">
+                    <span class="skill-pill">JavaScript</span>
+                    <span class="skill-pill">TypeScript</span>
+                    <span class="skill-pill">Python</span>
+                    <span class="skill-pill">Java</span>
+                    <span class="skill-pill">PHP</span>
+                    <span class="skill-pill">C#</span>
+                </div>
+            </div>
+            <div class="skill-group">
+                <div class="skill-group-label">Frontend</div>
+                <div class="skill-pills">
+                    <span class="skill-pill">ReactJS</span>
+                    <span class="skill-pill">Vue JS</span>
+                    <span class="skill-pill">HTML5</span>
+                    <span class="skill-pill">CSS3</span>
+                </div>
+            </div>
+            <div class="skill-group">
+                <div class="skill-group-label">Backend &amp; Frameworks</div>
+                <div class="skill-pills">
+                    <span class="skill-pill">Spring Boot</span>
+                    <span class="skill-pill">Spring MVC</span>
+                    <span class="skill-pill">.NET Core</span>
+                    <span class="skill-pill">ASP.NET MVC</span>
+                    <span class="skill-pill">Laravel</span>
+                </div>
+            </div>
+            <div class="skill-group">
+                <div class="skill-group-label">Databases</div>
+                <div class="skill-pills">
+                    <span class="skill-pill">MySQL</span>
+                    <span class="skill-pill">Oracle</span>
+                    <span class="skill-pill">PostgreSQL</span>
+                    <span class="skill-pill">SQL Server</span>
+                </div>
+            </div>
+            <div class="skill-group">
+                <div class="skill-group-label">Tools</div>
+                <div class="skill-pills">
+                    <span class="skill-pill">Git</span>
+                    <span class="skill-pill">Android Studio</span>
+                    <span class="skill-pill">Claude Code</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <span class="section-label">Experience</span>
+                <span class="section-divider"></span>
+            </div>
+            <div class="exp-item">
+                <div class="company">PT Bukit Silikon</div>
+                <div class="role">Programmer</div>
+                <div class="period">June 2024 &ndash; Present</div>
+                <div class="desc">
+                    Medimobile Portal, Healthcare Intelligent, FireFly, Helpdesk, and Dashboard projects.
+                    FSMinerals OSINT project. Lonestar Project.
+                </div>
+            </div>
+            <div class="exp-item">
+                <div class="company">PT AMN Indonesia</div>
+                <div class="role">Programmer</div>
+                <div class="period">Oct 2022 &ndash; June 2024</div>
+                <div class="desc">
+                    Purchasing Online Portal System (POPS) Web API, Honda Daya Part Shop Enterprise,
+                    Astra Daihatsu Disposal System, IAMI Learning Management System.
+                </div>
+            </div>
+            <div class="exp-item">
+                <div class="company">PT BCA Tbk</div>
+                <div class="role">.NET Developer</div>
+                <div class="period">Feb 2022 &ndash; Oct 2022</div>
+                <div class="desc">
+                    Created automation apps for financial performance management data generation.
+                    Rewrote legacy desktop apps to web applications. Designed flexible SQL queries
+                    for reporting.
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">foto kita blur</div>
+    </div>
+</body>
+</html>

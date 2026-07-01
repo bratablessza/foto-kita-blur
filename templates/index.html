@@ -3,35 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FOTO KITA BLUR BY TAKTAK </title>
+    <title>FOTO KITA BLUR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        * {
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            background: #0d0d0d;
-            color: #fff;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #1a1815;
+            color: #e8e0d8;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            padding: 32px 24px;
             overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
+            position: relative;
         }
 
+        /* ---- Warm ambient glow overlay ---- */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -40%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1000px;
+            height: 600px;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(240, 160, 80, 0.08) 0%,
+                rgba(230, 120, 70, 0.04) 40%,
+                transparent 70%
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ---- Main content ---- */
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ---- Camera container ---- */
         .container {
             position: relative;
-            width: 100vw;
-            max-width: 800px;
+            width: 100%;
+            max-width: 640px;
             aspect-ratio: 4 / 3;
-            background: #1a1a1a;
-            border-radius: 12px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid #2a2724;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.6),
+                0 2px 8px rgba(0, 0, 0, 0.3);
+            transition: box-shadow 0.5s ease;
+            background: #1f1c19;
+        }
+
+        .container.blurring {
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.6),
+                0 2px 8px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(240, 160, 80, 0.12),
+                0 0 80px rgba(240, 160, 80, 0.06);
         }
 
         .container img {
@@ -41,15 +93,17 @@
             display: block;
         }
 
+        /* ---- Loading overlay ---- */
         .loading {
             position: absolute;
             inset: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #1a1a1a;
+            background: #1f1c19;
             z-index: 10;
-            transition: opacity 0.3s;
+            transition: opacity 0.5s ease;
+            border-radius: 20px;
         }
 
         .loading.hidden {
@@ -58,47 +112,108 @@
         }
 
         .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid #333;
-            border-top-color: #00ff64;
+            width: 28px;
+            height: 28px;
+            border: 2.5px solid #2a2724;
+            border-top-color: #f0a050;
             border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+            animation: spin 0.6s linear infinite;
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
 
-        .info {
-            margin-top: 16px;
-            text-align: center;
-            color: #888;
-            font-size: 14px;
-            line-height: 1.6;
+        /* ---- Instruction ---- */
+        .instruction {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 28px;
+            color: #9a9085;
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            user-select: none;
         }
 
-        .info .gesture-icon {
-            font-size: 32px;
-            display: block;
-            margin-bottom: 4px;
+        .instruction .gesture-icon {
+            font-size: 22px;
+            line-height: 1;
+        }
+
+        /* ---- Footer ---- */
+        .footer {
+            width: 100%;
+            max-width: 640px;
+            display: flex;
+            justify-content: flex-end;
+            padding: 36px 0 52px;
+        }
+
+        .footer .about-link {
+            color: #8a8075;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 8px 20px;
+            border: 1px solid #3a3530;
+            border-radius: 100px;
+            background: transparent;
+            transition: all 0.25s ease;
+            letter-spacing: 0.01em;
+        }
+
+        .footer .about-link:hover {
+            color: #f0a050;
+            border-color: #f0a050;
+            background: rgba(240, 160, 80, 0.06);
+        }
+
+        /* ---- Powered-by (fixed to viewport bottom) ---- */
+        .powered-link {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #4a4540;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.03em;
+            transition: color 0.3s ease;
+        }
+
+        .powered-link:hover {
+            color: #6a6055;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
+    <main>
+        <div class="container" id="container">
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+            </div>
+            <img
+                src="/video_feed"
+                alt="Camera feed"
+                id="feed"
+                onload="document.getElementById('loading').classList.add('hidden')"
+                onerror="document.getElementById('loading').classList.remove('hidden')"
+            >
         </div>
-        <img src="/video_feed" alt="Camera feed" id="feed"
-             onload="document.getElementById('loading').classList.add('hidden')"
-             onerror="document.getElementById('loading').classList.remove('hidden')">
-    </div>
-    <div class="info">
-        <span class="gesture-icon">✌️</span>
-        Make a peace sign to blur the camera
-        <br><br><br>
-        <a href="https://github.com/bratablessza" target="_blank"> powered by taktak</a>
-    </div>
+
+        <p class="instruction">
+            <span class="gesture-icon">&#9996;&#65039;</span>
+            Make a peace sign to blur the camera
+        </p>
+
+        <div class="footer">
+            <a href="/about" class="about-link">About</a>
+        </div>
+    </main>
+
+    <a href="https://github.com/bratablessza" target="_blank" class="powered-link">powered by taktak</a>
 </body>
 </html>
